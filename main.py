@@ -247,13 +247,7 @@ async def main():
     app.add_handler(CallbackQueryHandler(analyze))
 
     await app.initialize()
-    await app.start()
-    await app.bot.initialize()
-    await app.updater.start_polling()
-
-    try:
-        await asyncio.Event().wait()
-    finally:
-        await HTTP.close()
-        await app.stop()
-        await app.shutdown()
+await app.start()
+await app.bot.initialize()
+await app.bot.delete_webhook(drop_pending_updates=True)
+await app.run_polling()
