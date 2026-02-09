@@ -8,7 +8,7 @@ import ta
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
-TELEGRAM_TOKEN="8435849845:AAE709exeyXbaQYvtU9_3BfIA0ngp3oZq_w"
+TELEGRAM_TOKEN="8581743742:AAFfd7uJ6W93Tfnoa1tuvQqh6nmRm_wwgHA"
 TWELVEDATA_KEY="064dbdcd38734f70b71db008e502f5e0"
 BYBIT_API_KEY="rVvfdhsRaz2XKBo6Pe"
 BYBIT_API_SECRET="pLH8ZMkL328aFxtkA1S9IsmtnaBicVe6phx4"
