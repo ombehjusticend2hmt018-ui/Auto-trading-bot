@@ -233,21 +233,27 @@ async def analyze(update,ctx):
     sig=signal(df,learning_weight) if not df.empty else None
     await q.edit_message_text(json.dumps(sig) if sig else "NO SIGNAL")
 
+
 async def main():
     global HTTP
     db_init()
-    HTTP=aiohttp.ClientSession()
-    app=ApplicationBuilder().token(TELEGRAM_TOKEN).build()
-    app.add_handler(CommandHandler("start",start))
-    app.add_handler(CommandHandler("activate",activate))
-    app.add_handler(CommandHandler("deactivate",deactivate))
-    app.add_handler(CommandHandler("backtest",backtest_cmd))
+    HTTP = aiohttp.ClientSession()
+
+    app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("activate", activate))
+    app.add_handler(CommandHandler("deactivate", deactivate))
+    app.add_handler(CommandHandler("backtest", backtest_cmd))
     app.add_handler(CallbackQueryHandler(analyze))
+
     await app.initialize()
     await app.start()
     await app.bot.initialize()
     await app.updater.start_polling()
-    await asyncio.Event().wait()
 
-if __name__=="__main__":
-    asyncio.run(main())
+    try:
+        await asyncio.Event().wait()
+    finally:
+        await HTTP.close()
+        await app.stop()
+        await app.shutdown()
